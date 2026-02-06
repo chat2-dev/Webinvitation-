@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Wedding Invitation | Arjun & Bhavya</title>
+
+<style>
+body{
+  margin:0;
+  font-family:'Georgia',serif;
+  background:#faf7f4;
+  color:#333;
+  text-align:center;
+}
+
+/* HERO */
+.hero{
+  position:relative;
+  height:100vh;
+  background:url('https://picsum.photos/1200/800') center/cover no-repeat;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.hero::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.45);
+}
+.hero-content{
+  position:relative;
+  color:#fff;
+  z-index:2;
+}
+.hero h1{font-size:3.5rem;margin:0;letter-spacing:2px;}
+.hero p{font-size:1.2rem;margin-top:10px;}
+
+/* SANSKRIT SLOKA */
+.sloka{
+  margin-top:25px;
+  font-size:1.3rem;
+  line-height:1.8;
+  background:linear-gradient(135deg,#f7e7b4,#d4af37,#b8962e,#f7e7b4);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  text-shadow:0 0 14px rgba(212,175,55,0.3);
+}
+
+section{padding:60px 20px;}
+
+/* PETALS */
+#petals{
+  position:fixed;
+  top:0;left:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:999;
+}
+
+.petal{
+  position:absolute;
+  top:-10%;
+  width:22px;
+  height:22px;
+  background-size:contain;
+  background-repeat:no-repeat;
+  opacity:0.9;
+  animation:fall linear infinite, sway ease-in-out infinite;
+}
+
+@keyframes fall{
+  to{ transform:translateY(110vh) rotate(360deg); }
+}
+
+@keyframes sway{
+  0%,100%{ margin-left:0; }
+  50%{ margin-left:80px; }
+}
+
+footer{
+  background:#eee;
+  padding:20px;
+  font-size:0.9rem;
+}
+</style>
+</head>
+<body>
+
+<!-- PETALS LAYER -->
+<div id="petals"></div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-content">
+    <h1>Arjun & Bhavya</h1>
+    <p>request the honour of your presence</p>
+    <div class="sloka">
+      वक्रतुण्ड महाकाय सूर्यकोटि समप्रभः ।<br>
+      निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा ॥
+    </div>
+  </div>
+</div>
+
+<section>
+  <h2>The Wedding Day</h2>
+  <p>15 May 2026 • Evening Ceremony</p>
+</section>
+
+<footer>
+  With love & blessings 🌹
+</footer>
+
+<script>
+const petalContainer = document.getElementById('petals');
+
+// reliable CDN-hosted rose petal PNGs
+const petalImages = [
+  'https://cdn.jsdelivr.net/gh/naptha/tesseract.js@master/docs/images/rose-petal.png',
+  'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Rose_petal.png/240px-Rose_petal.png'
+];
+
+function createPetal(){
+  const petal = document.createElement('div');
+  petal.className = 'petal';
+
+  // randomly choose one petal image
+  const img = petalImages[Math.floor(Math.random() * petalImages.length)];
+  petal.style.backgroundImage = `url(${img})`;
+
+  petal.style.left = Math.random() * 100 + 'vw';
+
+  const fallDuration = 9 + Math.random() * 6;
+  const swayDuration = 4 + Math.random() * 3;
+
+  petal.style.animationDuration = `${fallDuration}s, ${swayDuration}s`;
+  petal.style.transform = `rotate(${Math.random()*360}deg)`;
+
+  petalContainer.appendChild(petal);
+
+  setTimeout(() => petal.remove(), fallDuration * 1000);
+}
+
+setInterval(createPetal, 750);
+</script>
+
+</body>
+</html>

@@ -1,139 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Wedding Invitation | Arjun & Bhavya</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Petal Test</title>
 
 <style>
 body{
   margin:0;
-  font-family:'Georgia',serif;
-  background:#faf7f4;
-  color:#333;
-  text-align:center;
+  height:100vh;
+  overflow:hidden;
+  background:#ffffff;
+  font-family:Georgia, serif;
 }
 
-/* HERO */
-.hero{
-  position:relative;
-  height:100vh;
-  background:url('https://picsum.photos/1200/800') center/cover no-repeat;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.hero::after{
-  content:'';
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,0.45);
-}
-.hero-content{
-  position:relative;
-  color:#fff;
+/* SIMPLE TEXT */
+.center-text{
+  position:fixed;
+  top:40%;
+  width:100%;
+  text-align:center;
+  font-size:2rem;
+  color:#333;
   z-index:2;
 }
-.hero h1{font-size:3.5rem;margin:0;letter-spacing:2px;}
-.hero p{font-size:1.2rem;margin-top:10px;}
 
-/* SANSKRIT SLOKA */
-.sloka{
-  margin-top:25px;
-  font-size:1.3rem;
-  line-height:1.8;
-  background:linear-gradient(135deg,#f7e7b4,#d4af37,#b8962e,#f7e7b4);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  text-shadow:0 0 14px rgba(212,175,55,0.3);
-}
-
-section{padding:60px 20px;}
-
-/* PETALS LAYER */
-#petals{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  overflow:hidden;
-  z-index:999;
-}
-
-/* SINGLE LOCAL PETAL IMAGE */
+/* FALLING PNG */
 .petal{
-  position:absolute;
+  position:fixed;
   top:-60px;
-  width:26px;
-  height:26px;
-  background:url('petal.png') no-repeat center/contain;
-  opacity:0.85;
-  animation:fall linear forwards, sway ease-in-out infinite;
+  width:40px;
+  pointer-events:none;
+  animation:fall linear forwards;
 }
 
 @keyframes fall{
-  to{ transform:translateY(120vh) rotate(360deg); }
-}
-
-@keyframes sway{
-  0%,100%{ transform:translateX(0); }
-  50%{ transform:translateX(70px); }
-}
-
-footer{
-  background:#eee;
-  padding:20px;
-  font-size:0.9rem;
+  to{ top:110vh; }
 }
 </style>
 </head>
+
 <body>
 
-<!-- PETALS -->
-<div id="petals"></div>
-
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-content">
-    <h1>Arjun & Bhavyaa</h1>
-    <p>request the honour of your presence</p>
-    <div class="sloka">
-      वक्रतुण्ड महाकाय सूर्यकोटि समप्रभः ।<br>
-      निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा ॥
-    </div>
-  </div>
-</div>
-
-<section>
-  <h2>The Wedding Day</h2>
-  <p>15 May 2026 • Evening Ceremony</p>
-</section>
-
-<footer>
-  With love & blessings 🌹
-</footer>
+<div class="center-text">Testing falling PNG 🌸</div>
 
 <script>
-const container = document.getElementById('petals');
+function dropPetal(){
+  const img = document.createElement('img');
+  img.src = 'petal.png';   // SAME folder as this HTML
+  img.className = 'petal';
 
-function createPetal(){
-  const petal = document.createElement('div');
-  petal.className = 'petal';
+  img.style.left = Math.random() * 100 + 'vw';
+  const duration = 4 + Math.random() * 3;
+  img.style.animationDuration = duration + 's';
 
-  petal.style.left = Math.random() * 100 + 'vw';
+  document.body.appendChild(img);
 
-  const fallTime = 8 + Math.random() * 6;
-  const swayTime = 3 + Math.random() * 3;
-
-  petal.style.animationDuration = `${fallTime}s, ${swayTime}s`;
-
-  container.appendChild(petal);
-
-  setTimeout(() => petal.remove(), fallTime * 1000);
+  setTimeout(() => img.remove(), duration * 1000);
 }
 
-setInterval(createPetal, 500);
+setInterval(dropPetal, 700);
 </script>
 
 </body>
-  </html>
-  
+</html>
